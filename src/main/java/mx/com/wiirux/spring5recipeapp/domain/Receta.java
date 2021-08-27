@@ -4,10 +4,15 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -36,7 +41,16 @@ public class Receta {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Notas notas;
 	
+	@Enumerated(value = EnumType.STRING)
+	private Dificultad dificultad;
 	
+	@ManyToMany
+	@JoinTable(
+		name = "receta_categoria",
+		joinColumns = @JoinColumn(name = "receta_id"),
+		inverseJoinColumns = @JoinColumn(name = "categoria_id")
+	)
+	private Set<Categoria> categorias;
 	
 	public String getDescripcion() {
 		return descripcion;
@@ -98,5 +112,19 @@ public class Receta {
 	public void setIngredientes(Set<Ingrediente> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
+	public Dificultad getDificultad() {
+		return dificultad;
+	}
+	public void setDificultad(Dificultad dificultad) {
+		this.dificultad = dificultad;
+	}
+	/*
+	public Set<Categoria> getCategorias() {
+		return categorias;
+	}
+	public void setCategorias(Set<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+	*/
 	
 }

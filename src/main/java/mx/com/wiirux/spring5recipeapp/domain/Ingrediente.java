@@ -20,8 +20,6 @@ public class Ingrediente {
 	private String descripcion;
 	private BigDecimal cantidad;
 	
-	//private UnidadMedida unidadMedida;
-	
 	@ManyToOne
 	private Receta receta;
 	
@@ -59,4 +57,13 @@ public class Ingrediente {
 	public void setReceta(Receta receta) {
 		this.receta = receta;
 	}
+
+	public UnidadMedida getUnidadMedida() {
+		return unidadMedida;
+	}
+
+	public void setUnidadMedida(UnidadMedida unidadMedida) {
+		this.unidadMedida = unidadMedida;
+	}
+	
 }
