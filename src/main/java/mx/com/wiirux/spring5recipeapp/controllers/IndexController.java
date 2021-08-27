@@ -1,4 +1,4 @@
-package mx.com.wiirux.spring5jokesappv3.controllers;
+package mx.com.wiirux.spring5recipeapp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
