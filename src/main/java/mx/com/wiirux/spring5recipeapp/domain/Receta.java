@@ -1,5 +1,6 @@
 package mx.com.wiirux.spring5recipeapp.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -28,12 +29,12 @@ public class Receta {
 	private Integer tiempoCooccion;
 	private String origen;
 	private String url;
+	
+	@Lob
 	private String direcciones;
-	//agregar
-	//private Dificultad dificultad;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "receta")
-	private Set<Ingrediente> ingredientes;
+	private Set<Ingrediente> ingredientes = new HashSet<>();;
 	
 	@Lob
 	private Byte[] imagen;
@@ -50,7 +51,7 @@ public class Receta {
 		joinColumns = @JoinColumn(name = "receta_id"),
 		inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
-	private Set<Categoria> categorias;
+	private Set<Categoria> categorias = new HashSet<>();
 	
 	public String getDescripcion() {
 		return descripcion;
@@ -118,13 +119,11 @@ public class Receta {
 	public void setDificultad(Dificultad dificultad) {
 		this.dificultad = dificultad;
 	}
-	/*
 	public Set<Categoria> getCategorias() {
 		return categorias;
 	}
 	public void setCategorias(Set<Categoria> categorias) {
 		this.categorias = categorias;
 	}
-	*/
 	
 }
