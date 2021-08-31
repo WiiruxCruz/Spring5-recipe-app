@@ -29,6 +29,12 @@ public class Ingrediente {
 	public Ingrediente() {
 	}
 	
+	public Ingrediente(String descripcion, BigDecimal cantidad, UnidadMedida unidadMedida) {
+		this.descripcion = descripcion;
+		this.cantidad = cantidad;
+		this.unidadMedida = unidadMedida;
+	}
+	
 	public Ingrediente(String descripcion, BigDecimal cantidad, UnidadMedida unidadMedida, Receta receta) {
 		this.descripcion = descripcion;
 		this.cantidad = cantidad;

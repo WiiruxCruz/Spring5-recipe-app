@@ -100,6 +100,7 @@ public class Receta {
 	}
 	public void setNotas(Notas notas) {
 		this.notas = notas;
+		notas.setReceta(this);
 	}
 	public Long getId() {
 		return id;
@@ -109,6 +110,11 @@ public class Receta {
 	}
 	public Set<Ingrediente> getIngredientes() {
 		return ingredientes;
+	}
+	public Receta agregarIngrediente(Ingrediente ingrediente) {
+		ingrediente.setReceta(this);
+		this.ingredientes.add(ingrediente);
+		return this;
 	}
 	public void setIngredientes(Set<Ingrediente> ingredientes) {
 		this.ingredientes = ingredientes;
