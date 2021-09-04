@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
 import mx.com.wiirux.spring5recipeapp.domain.Categoria;
 import mx.com.wiirux.spring5recipeapp.domain.Dificultad;
 import mx.com.wiirux.spring5recipeapp.domain.Ingrediente;
@@ -19,6 +22,7 @@ import mx.com.wiirux.spring5recipeapp.repositories.CategoriaRepositorio;
 import mx.com.wiirux.spring5recipeapp.repositories.RecetaRepositorio;
 import mx.com.wiirux.spring5recipeapp.repositories.UnidadMedidaRepositorio;
 
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent>{
 	private CategoriaRepositorio cr;
@@ -32,8 +36,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 	}
 	
 	@Override
+	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		// TODO Auto-generated method stub
+		log.debug("Cargando datos");
 		rr.saveAll(getRecipes());
 	}
 	

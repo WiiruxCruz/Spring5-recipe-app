@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +17,16 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.transaction.Transactional;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+//@Getter
+//@Setter
+//@Transactional
 @Entity
 public class Receta {
 	
@@ -33,7 +43,7 @@ public class Receta {
 	@Lob
 	private String direcciones;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "receta")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "receta")
 	private Set<Ingrediente> ingredientes = new HashSet<>();;
 	
 	@Lob
@@ -53,83 +63,13 @@ public class Receta {
 	)
 	private Set<Categoria> categorias = new HashSet<>();
 	
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	public Integer getTiempoPreparacion() {
-		return tiempoPreparacion;
-	}
-	public void setTiempoPreparacion(Integer tiempoPreparacion) {
-		this.tiempoPreparacion = tiempoPreparacion;
-	}
-	public Integer getTiempoCooccion() {
-		return tiempoCooccion;
-	}
-	public void setTiempoCooccion(Integer tiempoCooccion) {
-		this.tiempoCooccion = tiempoCooccion;
-	}
-	public String getOrigen() {
-		return origen;
-	}
-	public void setOrigen(String origen) {
-		this.origen = origen;
-	}
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	public String getDirecciones() {
-		return direcciones;
-	}
-	public void setDirecciones(String direcciones) {
-		this.direcciones = direcciones;
-	}
-	public Byte[] getImagen() {
-		return imagen;
-	}
-	public void setImagen(Byte[] imagen) {
-		this.imagen = imagen;
-	}
-	public Notas getNotas() {
-		return notas;
-	}
 	public void setNotas(Notas notas) {
 		this.notas = notas;
 		notas.setReceta(this);
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Set<Ingrediente> getIngredientes() {
-		return ingredientes;
 	}
 	public Receta agregarIngrediente(Ingrediente ingrediente) {
 		ingrediente.setReceta(this);
 		this.ingredientes.add(ingrediente);
 		return this;
 	}
-	public void setIngredientes(Set<Ingrediente> ingredientes) {
-		this.ingredientes = ingredientes;
-	}
-	public Dificultad getDificultad() {
-		return dificultad;
-	}
-	public void setDificultad(Dificultad dificultad) {
-		this.dificultad = dificultad;
-	}
-	public Set<Categoria> getCategorias() {
-		return categorias;
-	}
-	public void setCategorias(Set<Categoria> categorias) {
-		this.categorias = categorias;
-	}
-	
 }

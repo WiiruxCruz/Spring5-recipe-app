@@ -10,6 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import lombok.Data;
+//import lombok.Getter;
+//import lombok.Setter;
+import lombok.EqualsAndHashCode;
+
+//@Getter
+//@Setter
+@Data
+@EqualsAndHashCode(exclude = {"receta"})
 @Entity
 public class Ingrediente {
 	
@@ -40,46 +49,6 @@ public class Ingrediente {
 		this.cantidad = cantidad;
 		this.unidadMedida = unidadMedida;
 		this.receta = receta;
-	}
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public BigDecimal getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(BigDecimal cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public Receta getReceta() {
-		return receta;
-	}
-
-	public void setReceta(Receta receta) {
-		this.receta = receta;
-	}
-
-	public UnidadMedida getUnidadMedida() {
-		return unidadMedida;
-	}
-
-	public void setUnidadMedida(UnidadMedida unidadMedida) {
-		this.unidadMedida = unidadMedida;
-	}
+	}	
 	
 }

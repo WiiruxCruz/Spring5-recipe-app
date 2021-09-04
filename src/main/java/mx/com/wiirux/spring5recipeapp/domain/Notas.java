@@ -7,6 +7,13 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+@EqualsAndHashCode(exclude = {"receta"})
 @Entity
 public class Notas {
 	@Id
@@ -18,24 +25,4 @@ public class Notas {
 	
 	@Lob
 	private String notasRecetas;
-	
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Receta getReceta() {
-		return receta;
-	}
-	public void setReceta(Receta receta) {
-		this.receta = receta;
-	}
-	public String getNotasRecetas() {
-		return notasRecetas;
-	}
-	public void setNotasRecetas(String notasRecetas) {
-		this.notasRecetas = notasRecetas;
-	}
 }

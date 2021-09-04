@@ -6,11 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
 import mx.com.wiirux.spring5recipeapp.domain.Categoria;
 import mx.com.wiirux.spring5recipeapp.domain.UnidadMedida;
 import mx.com.wiirux.spring5recipeapp.repositories.CategoriaRepositorio;
 import mx.com.wiirux.spring5recipeapp.repositories.UnidadMedidaRepositorio;
 
+@Slf4j
 @Controller
 public class IndexController {
 	
@@ -24,7 +26,7 @@ public class IndexController {
 
 	@RequestMapping({"", "/", "/index"})
 	public String getIndexPage(Model m) {
-		
+
 		Optional<Categoria> categoriaOptional = cr.findByDescripcion("Americana");
 		Optional<UnidadMedida> unidadMedidaOptional = umr.findByDescripcion("Cucharada");
 		
