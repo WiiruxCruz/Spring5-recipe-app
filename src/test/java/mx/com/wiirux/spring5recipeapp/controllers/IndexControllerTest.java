@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static org.mockito.ArgumentMatchers.anyLong;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +14,6 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -26,33 +24,60 @@ import org.springframework.ui.Model;
 import mx.com.wiirux.spring5recipeapp.domain.Receta;
 import mx.com.wiirux.spring5recipeapp.services.RecetaService;
 
-class RecipeControllerTest {
-	
+class IndexControllerTest {
+
 	@Mock
 	RecetaService rs;
 	
-	RecipeController rc;
+	@Mock
+	Model model;
+	
+	IndexController ic;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		
-		rc = new RecipeController(rs);
+		ic = new IndexController(rs);
 	}
 	
 	@Test
-	public void testObtenerReceta() throws Exception{
+	public void testMockMVC() throws Exception{
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(ic).build();
+		
+		mockMvc.perform(get("/"))
+			.andExpect(status().isOk())
+			.andExpect(view().name("index"))
+			;
+		
+	}
+
+	@Test
+	void testListaRecetas() {
+		
+		//dado
+		Set<Receta> recetas = new HashSet<>();
+		recetas.add(new Receta());
+		
 		Receta receta = new Receta();
 		receta.setId(1L);
+		recetas.add(receta);
 		
-		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(rc).build();
+		when(rs.getRecetas()).thenReturn(recetas);
 		
-		when(rs.buscarPorId(anyLong())).thenReturn(receta);
+		ArgumentCaptor<Set<Receta>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
 		
-		mockMvc.perform(get("/receta/mostrar/1"))
-		.andExpect(status().isOk())
-		.andExpect(view().name("receta/mostrar"))
-		;
+		//cuando
+		String viewName = ic.listaRecetas(model);
+		
+		//entonces
+		assertEquals("index", viewName);
+		verify(rs, times( 1 ) ).getRecetas();
+		//verify( model, times(1) ).addAttribute(Mockito.eq("recetas"), Mockito.anySet() );
+		verify( model, times(1) ).addAttribute(Mockito.eq("recetas"), argumentCaptor.capture() );
+		Set<Receta> setRecetaController = argumentCaptor.getValue();
+		assertEquals(2,  setRecetaController.size());
 	}
+
 
 }

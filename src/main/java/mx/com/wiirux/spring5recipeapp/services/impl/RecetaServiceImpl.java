@@ -1,6 +1,7 @@
 package mx.com.wiirux.spring5recipeapp.services.impl;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -28,6 +29,20 @@ public class RecetaServiceImpl implements RecetaService{
 		rr.findAll().iterator().forEachRemaining(recetas::add);
 		return recetas;
 	}
+
+	@Override
+	public Receta buscarPorId(Long id) {
+		// TODO Auto-generated method stub
+		Optional<Receta> recetaOpcional = rr.findById(id);
+		
+		if(!recetaOpcional.isPresent()) {
+			throw new RuntimeException("Receta no encontrada");
+		}
+				
+		return recetaOpcional.get();
+	}
+	
+	
 	
 	
 }

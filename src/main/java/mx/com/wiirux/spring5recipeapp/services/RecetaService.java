@@ -6,4 +6,5 @@ import mx.com.wiirux.spring5recipeapp.domain.Receta;
 
 public interface RecetaService {
 	public Set<Receta> getRecetas();
+	public Receta buscarPorId(Long id);
 }

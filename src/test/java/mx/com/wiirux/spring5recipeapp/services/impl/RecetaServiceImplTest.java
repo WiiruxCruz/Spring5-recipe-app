@@ -1,11 +1,20 @@
 package mx.com.wiirux.spring5recipeapp.services.impl;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+//import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+//import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyLong;
+
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +37,21 @@ class RecetaServiceImplTest {
 		MockitoAnnotations.initMocks(this);
 		
 		rsi = new RecetaServiceImpl(rr);
+	}
+	
+	@Test
+	public void getRecipeByIdTest() throws Exception{
+		Receta receta = new Receta();
+		receta.setId(1L);
+		Optional<Receta> recetaOpcional = Optional.of(receta);
 		
+		when(rr.findById(anyLong())).thenReturn(recetaOpcional);
+		
+		Receta recetaRegresada = rsi.buscarPorId(1L);
+		
+		assertNotNull(recetaRegresada, "Receta nula retornada");
+		verify(rr, times(1)).findById(anyLong());
+		verify(rr, never()).findAll();
 	}
 
 	@Test
