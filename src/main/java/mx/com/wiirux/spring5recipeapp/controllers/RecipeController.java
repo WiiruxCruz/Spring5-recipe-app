@@ -28,6 +28,7 @@ public class RecipeController {
 		m.addAttribute("recetas", this.rs.getRecetas());
 		return "receta/index";
 	}
+	
 	*/
 	
 	@RequestMapping("/receta/mostrar/{id}")
