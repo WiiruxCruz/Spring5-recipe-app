@@ -37,9 +37,11 @@
                             </div>
                             <div class="col-md-9">
                                 <ul>
-                                    <li>Categoría uno</li>
-                                    <li>Categoría dos</li>
-                                    <li>Categoría tres</li>
+                                	<!--/*@thymesVar id="receta" type="mx.com.wiirux.spring5recipeapp.domain.Receta"*/-->
+                                    <li
+                                    	th:each="categoria : ${receta.categorias}"
+                                    	th:text="${categoria.getDescripcion()}"
+                                    >Categoria Receta</li>
                                 </ul>
                             </div>
                         </div>
@@ -48,13 +50,19 @@
                                 <h5>Tiempo de preparación:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>30 min</p>
+                            	<!--/*@thymesVar id="receta" type="mx.com.wiirux.spring5recipeapp.domain.Receta"*/-->
+                                <p
+                                	th:text="${receta.getTiempoPreparacion()} + ' Min'"
+                                >Tiempo de preparación de la receta</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Dificultad:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>Fácil</p>
+                            	<!--/*@thymesVar id="receta" type="mx.com.wiirux.spring5recipeapp.domain.Receta"*/-->
+                                <p
+                                	th:text="${receta.getDificultad()}"
+                                >Dificultad de la receta</p>
                             </div>
                         </div>
                         <div class="row">
@@ -62,13 +70,19 @@
                                 <h5>Tiempo de coocción:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>30 min</p>
+                            	<!--/*@thymesVar id="receta" type="mx.com.wiirux.spring5recipeapp.domain.Receta"*/-->
+                                <p
+                                	th:text="${receta.getTiempoCooccion()} + ' Min'"
+                                >Tiempo de cocción de la receta</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Porciones:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>4</p>
+                            	<!--/*@thymesVar id="receta" type="mx.com.wiirux.spring5recipeapp.domain.Receta"*/-->
+                                <p
+                                	th:text="${receta.getPorciones()}"
+                                >Porciones de la receta</p>
                             </div>
                         </div>
                         <div class="row">
@@ -76,13 +90,19 @@
                                 <h5>Origen:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>30 min</p>
+                            	<!--/*@thymesVar id="receta" type="mx.com.wiirux.spring5recipeapp.domain.Receta"*/-->
+                                <p
+                                	th:text="${receta.getOrigen()}"
+                                >Origen de la receta</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>URL:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>http://www.example.com</p>
+                            	<!--/*@thymesVar id="receta" type="mx.com.wiirux.spring5recipeapp.domain.Receta"*/-->
+                                <p
+                                	th:text="${receta.getUrl()}"
+                                >Direccion de la receta</p>
                             </div>
                         </div>
                     </div>
@@ -95,9 +115,15 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <ul>
-                                    <li>1 Taza de leche</li>
-                                    <li>1 Cucharadita de chocolate</li>
-                                    <li>1 Cucharadita de azúcar</li>
+                                	<!--/*@thymesVar id="receta" type="mx.com.wiirux.spring5recipeapp.domain.Receta"*/-->
+                                    <li
+                                    	th:each="ingrediente : ${receta.ingredientes}"
+                                    	th:text="${(
+                                    	ingrediente.getCantidad()
+                                    	+ ' ' + ingrediente.unidadMedida.getDescripcion()
+                                    	+ ' - ' + ingrediente.getDescripcion()
+                                    	)}"                                    	
+                                    >1 Cucharadita de azúcar</li>
                                 </ul>
                             </div>
                         </div>
@@ -110,7 +136,9 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+                                <p
+                                	th:text="${receta.getDirecciones()}"
+                                >Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
                             </div>
                         </div>
                     </div>
@@ -122,7 +150,9 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+                                <p
+                                	th:text="${receta.getNotas().getNotasRecetas()}"
+                                >Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
                             </div>
                         </div>
                     </div>

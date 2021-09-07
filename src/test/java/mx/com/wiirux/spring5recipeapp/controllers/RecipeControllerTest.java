@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -52,6 +53,7 @@ class RecipeControllerTest {
 		mockMvc.perform(get("/receta/mostrar/1"))
 		.andExpect(status().isOk())
 		.andExpect(view().name("receta/mostrar"))
+		.andExpect(model().attributeExists("receta"))
 		;
 	}
 

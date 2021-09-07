@@ -110,7 +110,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         recetaGuacamole.setDescripcion("Perfect Guacamole");
         recetaGuacamole.setTiempoPreparacion(10);
         recetaGuacamole.setTiempoCooccion(0);
+        recetaGuacamole.setPorciones(4);
         recetaGuacamole.setDificultad(Dificultad.FACIL);
+        recetaGuacamole.setOrigen("Simply recipes");
+        recetaGuacamole.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
         recetaGuacamole.setDirecciones("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
                 "\n" +
                 "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)" +
@@ -154,7 +157,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         recetaTacos.setDescripcion("Spicy Grilled Chicken Taco");
         recetaTacos.setTiempoCooccion(9);
         recetaTacos.setTiempoPreparacion(20);
+        recetaTacos.setPorciones(3);
         recetaTacos.setDificultad(Dificultad.MODERADO);
+        recetaTacos.setOrigen("Simply recipes");
+        recetaTacos.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
 
         recetaTacos.setDirecciones("1 Prepare a gas or charcoal grill for medium-high, direct heat.\n" +
                 "2 Make the marinade and coat the chicken: In a large bowl, stir together the chili powder, oregano, cumin, sugar, salt, garlic and orange zest. Stir in the orange juice and olive oil to make a loose paste. Add the chicken to the bowl and toss to coat all over.\n" +

@@ -37,6 +37,7 @@ public class Receta {
 	private String descripcion;
 	private Integer tiempoPreparacion;
 	private Integer tiempoCooccion;
+	private Integer porciones;
 	private String origen;
 	private String url;
 	
