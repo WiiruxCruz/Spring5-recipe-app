@@ -17,16 +17,10 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.transaction.Transactional;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
-//@Getter
-//@Setter
-//@Transactional
 @Entity
 public class Receta {
 	
@@ -44,8 +38,9 @@ public class Receta {
 	@Lob
 	private String direcciones;
 	
+	//podría ser esta linea el problema en el fetch?
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "receta")
-	private Set<Ingrediente> ingredientes = new HashSet<>();;
+	private Set<Ingrediente> ingredientes = new HashSet<>();
 	
 	@Lob
 	private Byte[] imagen;
@@ -65,8 +60,10 @@ public class Receta {
 	private Set<Categoria> categorias = new HashSet<>();
 	
 	public void setNotas(Notas notas) {
-		this.notas = notas;
-		notas.setReceta(this);
+		if(notas != null) {
+			this.notas = notas;
+			notas.setReceta(this);
+		}
 	}
 	public Receta agregarIngrediente(Ingrediente ingrediente) {
 		ingrediente.setReceta(this);
