@@ -22,6 +22,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import mx.com.wiirux.spring5recipeapp.converters.RecetaARecetaCommand;
+import mx.com.wiirux.spring5recipeapp.converters.RecetaCommandAReceta;
 import mx.com.wiirux.spring5recipeapp.domain.Receta;
 import mx.com.wiirux.spring5recipeapp.repositories.RecetaRepositorio;
 
@@ -30,13 +32,20 @@ class RecetaServiceImplTest {
 	RecetaServiceImpl rsi;
 	
 	@Mock
-	RecetaRepositorio rr;
+	RecetaRepositorio recetaRepository;
+	
+	@Mock
+	RecetaARecetaCommand recetaARecetaCommand;
+	
+	@Mock
+	RecetaCommandAReceta recetaCommandAReceta;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		
-		rsi = new RecetaServiceImpl(rr);
+		rsi = new RecetaServiceImpl(recetaRepository, recetaCommandAReceta, recetaARecetaCommand);
+		
 	}
 	
 	@Test
@@ -45,13 +54,13 @@ class RecetaServiceImplTest {
 		receta.setId(1L);
 		Optional<Receta> recetaOpcional = Optional.of(receta);
 		
-		when(rr.findById(anyLong())).thenReturn(recetaOpcional);
+		when(recetaRepository.findById(anyLong())).thenReturn(recetaOpcional);
 		
 		Receta recetaRegresada = rsi.buscarPorId(1L);
 		
 		assertNotNull(recetaRegresada, "Receta nula retornada");
-		verify(rr, times(1)).findById(anyLong());
-		verify(rr, never()).findAll();
+		verify(recetaRepository, times(1)).findById(anyLong());
+		verify(recetaRepository, never()).findAll();
 	}
 
 	@Test
@@ -61,12 +70,12 @@ class RecetaServiceImplTest {
 		HashSet recetasData = new HashSet<>();
 		recetasData.add(receta);
 		
-		when(rr.findAll()).thenReturn(recetasData);
+		when(recetaRepository.findAll()).thenReturn(recetasData);
 		
 		Set<Receta> recetas = rsi.getRecetas();
 		
 		assertEquals(recetas.size(), 1);
-		verify(rr, times(1)).findAll();
+		verify(recetaRepository, times(1)).findAll();
 	}
 
 }
