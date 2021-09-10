@@ -3,10 +3,15 @@ package mx.com.wiirux.spring5recipeapp.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.extern.slf4j.Slf4j;
+import mx.com.wiirux.spring5recipeapp.commands.RecetaCommand;
+import mx.com.wiirux.spring5recipeapp.domain.Receta;
 import mx.com.wiirux.spring5recipeapp.services.RecetaService;
 
 @Slf4j
@@ -37,5 +42,21 @@ public class RecipeController {
 		model.addAttribute("receta", rs.buscarPorId( new Long(id) ) );
 		
 		return "receta/mostrar";
+	}
+	
+	@RequestMapping("receta/nuevo")
+	public String nuevaReceta(Model model) {
+		
+		model.addAttribute("receta", new Receta());
+		
+		return "receta/formularioReceta";
+	}
+	
+	@PostMapping
+	@RequestMapping("receta")
+	public String guardarOActualizar(@ModelAttribute RecetaCommand command) {
+		RecetaCommand salvarCommand = rs.guardarRecetaCommand(command);
+		
+		return "redirect:/receta/mostrar/" + salvarCommand.getId();
 	}
 }
