@@ -54,7 +54,7 @@ class RecetaARecetaCommandTest {
 		//dado
 		Receta receta = new Receta();
 		receta.setId(RECETA_ID);
-		receta.setTiempoCooccion(TIEMPO_COOCCION);
+		receta.setTiempoCoccion(TIEMPO_COOCCION);
 		receta.setTiempoPreparacion(TIEMPO_PREPARACION);
 		receta.setDescripcion(DESCRIPCION);
 		receta.setDificultad(DIFICULTAD);

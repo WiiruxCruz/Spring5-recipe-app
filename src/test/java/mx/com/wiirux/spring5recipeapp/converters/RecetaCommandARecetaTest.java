@@ -93,7 +93,7 @@ class RecetaCommandARecetaTest {
 		
 		assertNotNull(receta);
 		assertEquals(RECETA_ID, receta.getId());
-		assertEquals(TIEMPO_COOCCION, receta.getTiempoCooccion());
+		assertEquals(TIEMPO_COOCCION, receta.getTiempoCoccion());
 		assertEquals(TIEMPO_PREPARACION, receta.getTiempoPreparacion());
 		assertEquals(DESCRIPCION, receta.getDescripcion());
 		assertEquals(DIFICULTAD, receta.getDificultad());

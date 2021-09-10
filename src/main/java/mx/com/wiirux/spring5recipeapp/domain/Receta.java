@@ -30,7 +30,7 @@ public class Receta {
 	
 	private String descripcion;
 	private Integer tiempoPreparacion;
-	private Integer tiempoCooccion;
+	private Integer tiempoCoccion;
 	private Integer porciones;
 	private String origen;
 	private String url;
@@ -65,6 +65,7 @@ public class Receta {
 			notas.setReceta(this);
 		}
 	}
+	
 	public Receta agregarIngrediente(Ingrediente ingrediente) {
 		ingrediente.setReceta(this);
 		this.ingredientes.add(ingrediente);

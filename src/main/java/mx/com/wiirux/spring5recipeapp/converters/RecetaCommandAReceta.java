@@ -38,7 +38,7 @@ public class RecetaCommandAReceta implements Converter<RecetaCommand, Receta>{
 		
 		final Receta receta = new Receta();
 		receta.setId(source.getId());
-		receta.setTiempoCooccion(source.getTiempoCoccion());
+		receta.setTiempoCoccion(source.getTiempoCoccion());
 		receta.setTiempoPreparacion(source.getTiempoPreparacion());
 		receta.setDescripcion(source.getDescripcion());
 		receta.setDificultad(source.getDificultad());
