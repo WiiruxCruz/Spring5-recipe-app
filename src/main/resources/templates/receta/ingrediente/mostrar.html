@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Lista de ingredientes</title>
+    <title>Vista de ingrediente</title>
 
     <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet"
@@ -22,7 +22,6 @@
 	></script>
 </head>
 <body>
-<!--/*@thymesVar id="receta" type="mx.com.wiirux.spring5recipeapp.domain.Receta"*/-->
 <!--/*@thymesVar id="ingredientes" type="java.util.Set<mx.com.wiirux.spring5recipeapp.commands.IngredienteCommand>"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
@@ -30,27 +29,25 @@
             <div class="panel panel-primary">
 
                 <div class="panel-heading">
-                    <h1 class="panel-title">Ingredientes</h1>
+                    <h1 class="panel-title">Ingrediente</h1>
                 </div>
                 <div class="panel-body">
 
-                    <div class="table-responsive" th:if="${not #lists.isEmpty(receta.ingredientes)}">
+                    <div class="table-responsive">
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
                             <tr>
                                 <th>ID</th>
-                                <th>Descripcion</th>
-                                <th>Ver</th>
-                                <th>Actualizar</th>
-                                <th>Borrar</th>
+                                <th>Descripción</th>
                             </tr>
                             </thead>
-                            <tr th:each="ingrediente : ${receta.ingredientes}">
+                            <tr>
                                 <td th:text="${ingrediente.id}">334</td>
-                                <td th:text="${ingrediente.cantidad} + ' ' + ${ingrediente.unidadMedida.getDescripcion()} + ' ' + ${ingrediente.descripcion} + '/mostrar'">descripcion ingrediente</td>
-                                <td><a href="#" th:href="@{'/receta/' + ${receta.id} + '/ingrediente/' + ${ingrediente.id} + '/mostrar'}">Ver</a></td>
-                                <td><a href="#" th:href="@{'/receta/' + ${receta.id} + '/ingrediente/' + ${ingrediente.id} + '/actualizar'}">Actualizar</a></td>
-                                <td><a href="#" th:href="@{'/receta/' + ${receta.id} + '/ingrediente/' + ${ingrediente.id} + '/borrar'}">Borrar</a></td>
+                                <td
+                                	th:text="${ingrediente.cantidad}
+                                	+ ' ' + ${ingrediente.unidadMedida.getDescripcion()}
+                                	+ ' ' + ${ingrediente.descripcion}"
+                                >Elemento ingrediente</td>
                             </tr>
                         </table>
                     </div>

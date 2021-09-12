@@ -7,15 +7,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
+import mx.com.wiirux.spring5recipeapp.services.IngredienteService;
 import mx.com.wiirux.spring5recipeapp.services.RecetaService;
 
 @Slf4j
 @Controller
 public class IngredienteController {
 	private final RecetaService recetaService;
+	private final IngredienteService ingredienteService;
 	
-	public IngredienteController(RecetaService recetaService) {
+	public IngredienteController(RecetaService recetaService, IngredienteService ingredienteService) {
 		this.recetaService = recetaService;
+		this.ingredienteService = ingredienteService;
 	}
 	
 	@GetMapping
@@ -26,4 +29,20 @@ public class IngredienteController {
 		
 		return "receta/ingrediente/lista";
 	}
+	
+	@GetMapping
+	@RequestMapping("receta/{recetaId}/ingrediente/{ingredienteId}/mostrar")
+	public String mostrarRecetaIngrediente(
+		@PathVariable String recetaId,
+		@PathVariable String ingredienteId,
+		Model model
+	) {
+		
+		model.addAttribute("ingrediente", ingredienteService.buscarPorRecetaIdEIngredienteId(
+				Long.valueOf(recetaId),
+				Long.valueOf(ingredienteId)
+		));
+		return "receta/ingrediente/mostrar";
+	}
+	
 }

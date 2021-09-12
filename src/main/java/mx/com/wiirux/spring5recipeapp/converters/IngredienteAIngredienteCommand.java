@@ -30,6 +30,9 @@ public class IngredienteAIngredienteCommand implements Converter<Ingrediente, In
 		
 		IngredienteCommand ingredienteCommand = new IngredienteCommand();
 		ingredienteCommand.setId(ingrediente.getId());
+		if(ingrediente.getReceta() != null) {
+			ingredienteCommand.setRecetaId(ingrediente.getReceta().getId());
+		}
 		ingredienteCommand.setCantidad(ingrediente.getCantidad());
 		ingredienteCommand.setDescripcion(ingrediente.getDescripcion());
 		ingredienteCommand.setUnidadMedida(umConverter.convert(ingrediente.getUnidadMedida()));
