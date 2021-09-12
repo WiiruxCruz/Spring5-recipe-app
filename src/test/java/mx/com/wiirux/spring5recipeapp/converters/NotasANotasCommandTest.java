@@ -31,7 +31,7 @@ class NotasANotasCommandTest {
 		
 		//entonces
 		assertEquals(ID_VALUE, notasCommand.getId());
-		assertEquals(RECETA_NOTAS, notasCommand.getNotasReceta());
+		assertEquals(RECETA_NOTAS, notasCommand.getNotasRecetas());
 	}
 	
 	@Test

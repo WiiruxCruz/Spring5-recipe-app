@@ -50,7 +50,7 @@ class IngredienteAIngredienteCommandTest {
 		IngredienteCommand ingredienteCommand = converter.convert(ingrediente);
 		
 		//entonces
-		assertNull(ingredienteCommand.getUnidadMedidaCommand());
+		assertNull(ingredienteCommand.getUnidadMedida());
 		assertEquals(ID_VALUE, ingredienteCommand.getId());
 		//assertEquals(RECETA, ingredienteCommand.get);
 		assertEquals(CANTIDAD, ingredienteCommand.getCantidad());

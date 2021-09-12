@@ -54,6 +54,13 @@ public class RecetaServiceImpl implements RecetaService{
 				
 		return recetaOpcional.get();
 	}
+	
+	@Override
+	@Transactional
+	public RecetaCommand buscarCommandPorId(Long id) {
+		// TODO Auto-generated method stub
+		return recetaARecetaCommand.convert( buscarPorId(id) );
+	}
 
 	@Override
 	@Transactional
@@ -64,8 +71,4 @@ public class RecetaServiceImpl implements RecetaService{
 		log.debug("Receta salvada ID:" + recetaSalvada.getId());
 		return recetaARecetaCommand.convert(recetaSalvada);
 	}
-	
-	
-	
-	
 }

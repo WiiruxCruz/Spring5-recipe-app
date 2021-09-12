@@ -46,7 +46,7 @@ class IngredienteCommandAIngredienteTest {
 		command.setDescripcion(DESCRIPCION);
 		UnidadMedidaCommand unidadMedidaCommand = new UnidadMedidaCommand();
 		unidadMedidaCommand.setId(UM_ID);
-		command.setUnidadMedidaCommand(unidadMedidaCommand);
+		command.setUnidadMedida(unidadMedidaCommand);
 		
 		//cuando
 		Ingrediente ingrediente = converter.convert(command);

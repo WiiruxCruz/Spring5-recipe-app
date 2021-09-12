@@ -23,7 +23,7 @@ public class NotasCommandANotas implements Converter<NotasCommand, Notas>{
 		
 		final Notas notas = new Notas();
 		notas.setId(source.getId());
-		notas.setNotasRecetas(source.getNotasReceta());
+		notas.setNotasRecetas(source.getNotasRecetas());
 		
 		return notas;
 	}

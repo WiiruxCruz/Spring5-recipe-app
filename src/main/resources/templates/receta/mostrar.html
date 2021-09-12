@@ -100,9 +100,14 @@
                             </div>
                             <div class="col-md-3">
                             	<!--/*@thymesVar id="receta" type="mx.com.wiirux.spring5recipeapp.domain.Receta"*/-->
-                                <p
-                                	th:text="${receta.getUrl()}"
-                                >Direccion de la receta</p>
+                                <p>
+                                	<a
+                                		href="#"
+                                		th:text="${receta.getUrl()}"
+                                	>
+                                		Ver original
+                                	</a>
+                                </p>
                             </div>
                         </div>
                     </div>

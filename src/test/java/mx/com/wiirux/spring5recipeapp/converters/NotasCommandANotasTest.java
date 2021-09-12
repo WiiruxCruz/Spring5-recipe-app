@@ -34,7 +34,7 @@ class NotasCommandANotasTest {
 		//dado
 		NotasCommand notasCommand = new NotasCommand();
 		notasCommand.setId(ID_VALUE);
-		notasCommand.setNotasReceta(RECETA_NOTAS);
+		notasCommand.setNotasRecetas(RECETA_NOTAS);
 		
 		//cuando
 		Notas notas = converter.convert(notasCommand);

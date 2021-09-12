@@ -36,7 +36,7 @@ public class RecipeController {
 	
 	*/
 	
-	@RequestMapping("/receta/mostrar/{id}")
+	@RequestMapping("/receta/{id}/mostrar")
 	public String mostrarPorId(@PathVariable String id, Model model) {
 		
 		model.addAttribute("receta", rs.buscarPorId( new Long(id) ) );
@@ -52,11 +52,18 @@ public class RecipeController {
 		return "receta/formularioReceta";
 	}
 	
+	@RequestMapping("receta/{id}/actualizar")
+	public String actualizarReceta(@PathVariable String id, Model model) {
+		model.addAttribute("receta", rs.buscarCommandPorId(Long.valueOf(id)));
+		
+		return "receta/formularioReceta";
+	}
+	
 	@PostMapping
 	@RequestMapping("receta")
 	public String guardarOActualizar(@ModelAttribute RecetaCommand command) {
 		RecetaCommand salvarCommand = rs.guardarRecetaCommand(command);
 		
-		return "redirect:/receta/mostrar/" + salvarCommand.getId();
+		return "redirect:/receta/" + salvarCommand.getId() + "/mostrar";
 	}
 }

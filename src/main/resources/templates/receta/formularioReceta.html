@@ -145,7 +145,7 @@
                                         <li th:remove="all">asdf</li>
                                         <li th:each="ingrediente : ${receta.ingredientes}"
                                             th:text="${(ingrediente.getCantidad() +
-                                        ' ' + ingrediente.uom.getDescripcion() +
+                                        ' ' + ingrediente.unidadMedida.getDescripcion() +
                                         ' - ' + ingrediente.getDescripcion())}">1 Teaspoon of Sugar
                                         </li>
                                     </ul>
