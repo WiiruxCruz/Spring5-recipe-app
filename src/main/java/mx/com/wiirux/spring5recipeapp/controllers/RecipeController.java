@@ -66,4 +66,14 @@ public class RecipeController {
 		
 		return "redirect:/receta/" + salvarCommand.getId() + "/mostrar";
 	}
+	
+	@GetMapping
+	@RequestMapping("receta/{id}/borrar")
+	public String borraPorId(@PathVariable String id) {
+		log.debug("Borrando id:" + id);
+		
+		rs.borrarRecetaPorId(Long.valueOf(id));
+		
+		return "redirect:/";
+	}
 }

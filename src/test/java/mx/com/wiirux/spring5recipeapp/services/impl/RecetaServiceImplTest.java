@@ -77,5 +77,19 @@ class RecetaServiceImplTest {
 		assertEquals(recetas.size(), 1);
 		verify(recetaRepository, times(1)).findAll();
 	}
+	
+	@Test
+	public void testDeleteById() throws Exception{
+		//dado
+		Long idBorrar = Long.valueOf(2L);
+		
+		//cuando
+		rsi.borrarRecetaPorId(idBorrar);
+		
+		//no hay cuando, dado que el metodo tiene un tipo de retorno void
+		
+		//entonces
+		verify(recetaRepository, times(1)).deleteById(anyLong());
+	}
 
 }

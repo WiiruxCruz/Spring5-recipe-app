@@ -106,5 +106,14 @@ class RecipeControllerTest {
 		.andExpect(model().attributeExists("receta"))
 		;
 	}
-
+	
+	@Test
+	public void testDeleteAction() throws Exception{
+		mockMvc.perform( get("/receta/1/borrar") )
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/"))
+		;
+		
+		verify(rs, times(1)).borrarRecetaPorId(anyLong());
+	}
 }

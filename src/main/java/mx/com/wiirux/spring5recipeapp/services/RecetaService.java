@@ -10,4 +10,5 @@ public interface RecetaService {
 	Receta buscarPorId(Long id);
 	RecetaCommand buscarCommandPorId(Long id);
 	RecetaCommand guardarRecetaCommand(RecetaCommand command);
+	void borrarRecetaPorId(Long id);
 }

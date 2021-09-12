@@ -71,4 +71,10 @@ public class RecetaServiceImpl implements RecetaService{
 		log.debug("Receta salvada ID:" + recetaSalvada.getId());
 		return recetaARecetaCommand.convert(recetaSalvada);
 	}
+	
+	@Override
+	@Transactional
+	public void borrarRecetaPorId(Long id) {
+		recetaRepositorio.deleteById(id);
+	}
 }
