@@ -2,13 +2,17 @@ package mx.com.wiirux.spring5recipeapp.services.impl;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import mx.com.wiirux.spring5recipeapp.commands.IngredienteCommand;
 import mx.com.wiirux.spring5recipeapp.converters.IngredienteAIngredienteCommand;
+import mx.com.wiirux.spring5recipeapp.converters.IngredienteCommandAIngrediente;
+import mx.com.wiirux.spring5recipeapp.domain.Ingrediente;
 import mx.com.wiirux.spring5recipeapp.domain.Receta;
-import mx.com.wiirux.spring5recipeapp.repositories.RecetaRepositorio;
+import mx.com.wiirux.spring5recipeapp.repositories.RecetaRepositorio;import mx.com.wiirux.spring5recipeapp.repositories.UnidadMedidaRepositorio;
 import mx.com.wiirux.spring5recipeapp.services.IngredienteService;
 import mx.com.wiirux.spring5recipeapp.services.RecetaService;
 
@@ -17,12 +21,20 @@ import mx.com.wiirux.spring5recipeapp.services.RecetaService;
 public class IngredienteServiceImpl implements IngredienteService{
 	
 	private final IngredienteAIngredienteCommand ingredienteAIngredienteCommand;
+	private final IngredienteCommandAIngrediente ingredienteCommandAIngrediente;
 	private final RecetaRepositorio recetaRepositorio;
+	private final UnidadMedidaRepositorio unidadMedidaRepositorio;
 	
-	public IngredienteServiceImpl(IngredienteAIngredienteCommand ingredienteAIngredienteCommand,
-			RecetaRepositorio recetaRepositorio) {
+	public IngredienteServiceImpl(
+		IngredienteAIngredienteCommand ingredienteAIngredienteCommand,
+		IngredienteCommandAIngrediente ingredienteCommandAIngrediente,
+		RecetaRepositorio recetaRepositorio,
+		UnidadMedidaRepositorio unidadMedidaRepositorio
+	) {
 		this.ingredienteAIngredienteCommand = ingredienteAIngredienteCommand;
+		this.ingredienteCommandAIngrediente = ingredienteCommandAIngrediente;
 		this.recetaRepositorio = recetaRepositorio;
+		this.unidadMedidaRepositorio = unidadMedidaRepositorio;
 	}
 	
 	@Override
@@ -49,6 +61,50 @@ public class IngredienteServiceImpl implements IngredienteService{
 		}
 		
 		return ingredienteCommandOpcional.get();
+	}
+	
+	@Override
+	@Transactional
+	public IngredienteCommand guardarIngredienteCommand(IngredienteCommand command) {
+		Optional<Receta> recetaOpcional = recetaRepositorio.findById(command.getRecetaId());
+		
+		if(!recetaOpcional.isPresent()) {
+			log.error("Receta no encontrada por id:" + command.getRecetaId() );
+			return new IngredienteCommand();
+		} else {
+			Receta receta = recetaOpcional.get();
+			Optional<Ingrediente> ingredienteOpcional = receta
+					.getIngredientes()
+					.stream()
+					.filter( ingrediente -> ingrediente.getId().equals( command.getId() ) )
+					.findFirst()
+					;
+			
+			if(ingredienteOpcional.isPresent()) {
+				Ingrediente ingredienteEncontrado = ingredienteOpcional.get();
+				ingredienteEncontrado.setDescripcion( command.getDescripcion() );
+				ingredienteEncontrado.setCantidad( command.getCantidad() );
+				ingredienteEncontrado.setUnidadMedida( unidadMedidaRepositorio
+					.findById( command.getUnidadMedida().getId() )
+					.orElseThrow(
+						() -> new RuntimeException("Unidad Medida no encontrada")
+					)
+				);
+			} else {
+				//agregar nuevo ingrediente
+				receta.agregarIngrediente( ingredienteCommandAIngrediente.convert(command) );
+			}
+			
+			Receta guardarReceta = recetaRepositorio.save(receta);
+			
+			//hacer check por fallo
+			return ingredienteAIngredienteCommand.convert(
+				guardarReceta.getIngredientes().stream()
+				.filter( recetaIngredientes -> recetaIngredientes.getId().equals( command.getId() ))
+				.findFirst()
+				.get()
+			);
+		}
 	}
 
 }

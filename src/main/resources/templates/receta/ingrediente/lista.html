@@ -47,7 +47,7 @@
                             </thead>
                             <tr th:each="ingrediente : ${receta.ingredientes}">
                                 <td th:text="${ingrediente.id}">334</td>
-                                <td th:text="${ingrediente.cantidad} + ' ' + ${ingrediente.unidadMedida.getDescripcion()} + ' ' + ${ingrediente.descripcion} + '/mostrar'">descripcion ingrediente</td>
+                                <td th:text="${ingrediente.cantidad} + ' ' + ${ingrediente.unidadMedida.getDescripcion()} + ' ' + ${ingrediente.descripcion}">descripcion ingrediente</td>
                                 <td><a href="#" th:href="@{'/receta/' + ${receta.id} + '/ingrediente/' + ${ingrediente.id} + '/mostrar'}">Ver</a></td>
                                 <td><a href="#" th:href="@{'/receta/' + ${receta.id} + '/ingrediente/' + ${ingrediente.id} + '/actualizar'}">Actualizar</a></td>
                                 <td><a href="#" th:href="@{'/receta/' + ${receta.id} + '/ingrediente/' + ${ingrediente.id} + '/borrar'}">Borrar</a></td>
