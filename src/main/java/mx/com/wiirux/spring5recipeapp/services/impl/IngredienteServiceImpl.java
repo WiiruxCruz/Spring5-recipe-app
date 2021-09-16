@@ -92,18 +92,31 @@ public class IngredienteServiceImpl implements IngredienteService{
 				);
 			} else {
 				//agregar nuevo ingrediente
+				Ingrediente ingrediente = ingredienteCommandAIngrediente.convert(command);
+				ingrediente.setReceta(receta);
 				receta.agregarIngrediente( ingredienteCommandAIngrediente.convert(command) );
 			}
 			
 			Receta guardarReceta = recetaRepositorio.save(receta);
 			
+			Optional<Ingrediente> guardarIngredienteOpcional = guardarReceta.getIngredientes().stream()
+					.filter(recetaIngredientes -> recetaIngredientes.getId().equals(command.getId()))
+					.findFirst()
+					;
+			
+			//revisar por descripcion
+			if(!guardarIngredienteOpcional.isPresent()) {
+				//no totalmente seguro, pero mejor supocicion, but best guess
+				guardarIngredienteOpcional = guardarReceta.getIngredientes().stream()
+					.filter(recetaIngredientes -> recetaIngredientes.getDescripcion().equals(command.getDescripcion()))
+					.filter(recetaIngredientes -> recetaIngredientes.getCantidad().equals(command.getCantidad()))
+					.filter(recetaIngredientes -> recetaIngredientes.getUnidadMedida().getId().equals(command.getUnidadMedida().getId()))
+					.findFirst()
+					;
+			}
+			
 			//hacer check por fallo
-			return ingredienteAIngredienteCommand.convert(
-				guardarReceta.getIngredientes().stream()
-				.filter( recetaIngredientes -> recetaIngredientes.getId().equals( command.getId() ))
-				.findFirst()
-				.get()
-			);
+			return ingredienteAIngredienteCommand.convert(guardarIngredienteOpcional.get());
 		}
 	}
 

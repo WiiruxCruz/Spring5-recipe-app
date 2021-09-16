@@ -19,6 +19,7 @@ import static org.mockito.Mockito.verify;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -89,6 +90,27 @@ class IngredienteControllerTest {
 		.andExpect(view().name("receta/ingrediente/mostrar"))
 		.andExpect(model().attributeExists("ingrediente"))
 		;
+	}
+	
+	@Test
+	public void testAgregarIngrediente() throws Exception{
+		//dado
+		RecetaCommand recetaCommand = new RecetaCommand();
+		recetaCommand.setId(1L);
+		
+		//cuando
+		when(recetaService.buscarCommandPorId(anyLong())).thenReturn(recetaCommand);
+		when(unidadMedidaService.listaTodasUnidadesMedidas()).thenReturn(new HashSet<>());
+		
+		//entonces
+		mockMvc.perform(get("/receta/1/ingrediente/nuevo"))
+			.andExpect(status().isOk())
+			.andExpect(view().name("receta/ingrediente/formularioIngrediente"))
+			.andExpect(model().attributeExists("ingrediente"))
+			.andExpect(model().attributeExists("listaUnidadMedida"))
+			;
+		
+		verify(recetaService, times(1)).buscarCommandPorId(anyLong());
 	}
 	
 	@Test

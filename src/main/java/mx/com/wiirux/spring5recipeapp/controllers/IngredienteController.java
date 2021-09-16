@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import mx.com.wiirux.spring5recipeapp.commands.IngredienteCommand;
+import mx.com.wiirux.spring5recipeapp.commands.RecetaCommand;
+import mx.com.wiirux.spring5recipeapp.commands.UnidadMedidaCommand;
+import mx.com.wiirux.spring5recipeapp.domain.UnidadMedida;
 import mx.com.wiirux.spring5recipeapp.services.IngredienteService;
 import mx.com.wiirux.spring5recipeapp.services.RecetaService;
 import mx.com.wiirux.spring5recipeapp.services.UnidadMedidaService;
@@ -53,6 +56,24 @@ public class IngredienteController {
 				Long.valueOf(ingredienteId)
 		));
 		return "receta/ingrediente/mostrar";
+	}
+	
+	@GetMapping
+	@RequestMapping("receta/{recetaId}/ingrediente/nuevo")
+	public String agregarIngrediente( @PathVariable String recetaId, Model model ) {
+		//asegurate que tenemos un id value
+		RecetaCommand recetaCommand = recetaService.buscarCommandPorId(Long.valueOf(recetaId));
+		
+		//neecsitamos regresar a parent id para propiedad escondida
+		IngredienteCommand ingredienteCommand = new IngredienteCommand();
+		ingredienteCommand.setRecetaId(Long.valueOf(recetaId));
+		model.addAttribute("ingrediente", ingredienteCommand);
+		
+		//init unidadMedida
+		ingredienteCommand.setUnidadMedida(new UnidadMedidaCommand());
+		
+		model.addAttribute("listaUnidadMedida", unidadMedidaService.listaTodasUnidadesMedidas());
+		return "receta/ingrediente/formularioIngrediente";
 	}
 	
 	@GetMapping
