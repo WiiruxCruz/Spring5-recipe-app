@@ -85,10 +85,17 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Dificultad:</label>
-                                    <select class="form-control">
-                                        <option>Fácil</option>
-                                        <option>Medio</option>
-                                        <option>Dificíl</option>
+                                    <select
+                                    	class="form-control"
+                                    	th:field="*{dificultad}"
+                                    >
+                                    	<option
+                                    		th:each="valorDificultad : ${T(mx.com.wiirux.spring5recipeapp.domain.Dificultad).values()}"
+                                    		th:value="${valorDificultad}"
+                                    		th:text="${valorDificultad}"
+                                    	>
+                                    		Valor de opción
+                                    	</option>
                                     </select>
                                 </div>
                             </div>
