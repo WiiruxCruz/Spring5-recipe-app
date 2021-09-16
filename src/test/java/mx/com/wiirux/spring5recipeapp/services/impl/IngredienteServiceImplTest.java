@@ -1,5 +1,6 @@
 package mx.com.wiirux.spring5recipeapp.services.impl;
 
+import static org.hamcrest.CoreMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -116,6 +117,26 @@ class IngredienteServiceImplTest {
 		assertEquals(Long.valueOf(3L), guardarCommand.getId());
 		verify(recetaRepositorio, times(1)).findById(anyLong());
 		//verify(recetaRepositorio, times(1)).save(any(Receta.class));
+		verify(recetaRepositorio, times(1)).save(Mockito.any(Receta.class));
+	}
+	
+	@Test
+	public void testBorrarPorId() throws Exception{
+		//dado
+		Receta receta = new Receta();
+		Ingrediente ingrediente = new Ingrediente();
+		ingrediente.setId(3L);
+		receta.agregarIngrediente(ingrediente);
+		ingrediente.setReceta(receta);
+		Optional<Receta> recetaOpcional = Optional.of(receta);
+		
+		when(recetaRepositorio.findById(anyLong())).thenReturn(recetaOpcional);
+		
+		//cuando
+		ingredienteService.borrarIngredientePorId(1L, 3L);
+		
+		//entonces
+		verify(recetaRepositorio, times(1)).findById(anyLong());
 		verify(recetaRepositorio, times(1)).save(Mockito.any(Receta.class));
 	}
 

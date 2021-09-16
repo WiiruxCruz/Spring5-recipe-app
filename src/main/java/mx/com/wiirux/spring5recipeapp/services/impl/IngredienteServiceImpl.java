@@ -119,5 +119,35 @@ public class IngredienteServiceImpl implements IngredienteService{
 			return ingredienteAIngredienteCommand.convert(guardarIngredienteOpcional.get());
 		}
 	}
+	
+	@Override
+	@Transactional
+	public void borrarIngredientePorId(Long recetaId, Long ingredienteId) {
+		log.debug("Borrar ingrediente: " + recetaId + ":" + ingredienteId);
+		
+		Optional<Receta> recetaOpcional = recetaRepositorio.findById(recetaId);
+		
+		if(recetaOpcional.isPresent()) {
+			Receta receta = recetaOpcional.get();
+			log.debug("encontré receta");
+			
+			Optional<Ingrediente> ingredienteOpcional = receta
+					.getIngredientes()
+					.stream()
+					.filter( ingrediente -> ingrediente.getId().equals(ingredienteId) )
+					.findFirst()
+					;
+			
+			if(ingredienteOpcional.isPresent()) {
+				log.debug("Encontré ingrediente");
+				Ingrediente ingredienteBorrar = ingredienteOpcional.get();
+				ingredienteBorrar.setReceta(null);
+				receta.getIngredientes().remove(ingredienteOpcional.get());
+				recetaRepositorio.save(receta);
+			}
+		} else {
+			log.debug("Receta id no encontrada. Id:" + recetaId);
+		}
+	}
 
 }

@@ -100,5 +100,15 @@ public class IngredienteController {
 		return "redirect:/receta/" + guardarCommand.getRecetaId() + "/ingrediente/" + guardarCommand.getId() + "/mostrar";
 	}
 	
-	
+	@GetMapping
+	@RequestMapping("receta/{recetaId}/ingrediente/{ingredienteId}/borrar")
+	public String borrarIngrediente(
+		@PathVariable String recetaId,
+		@PathVariable String ingredienteId
+	) {
+		log.debug("borrando ingrediente id:" + ingredienteId);
+		ingredienteService.borrarIngredientePorId(Long.valueOf(recetaId), Long.valueOf(ingredienteId));
+		
+		return "redirect:/receta/" + recetaId + "/ingredientes";
+	}
 }
