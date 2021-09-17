@@ -28,14 +28,34 @@
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" th:text="${receta.descripcion}">Descripción de la receta aquí!</h1>
+                    	<div class="row">
+                    		<div class="col-md-3">
+                    			<h1
+		                        	class="panel-title"
+		                        	th:text="${receta.descripcion}"
+	                        	>
+	                        		Descripción de la receta aquí!
+	                        	</h1>
+                    		</div>
+                    		<div class="col-md-1">
+                    			<a
+                    				class="btn btn-default"
+                    				href="#"
+                    				th:href="@{'/receta/' + ${receta.id} + '/imagen'}"
+                    				role="button"
+                    			>
+                    				Cambiar imagen
+                    			</a>
+                    		</div>
+                    	</div>
+                        
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3">
                                 <h5>Categorias:</h5>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-3">
                                 <ul>
                                 	<!--/*@thymesVar id="receta" type="mx.com.wiirux.spring5recipeapp.domain.Receta"*/-->
                                     <li
@@ -43,6 +63,14 @@
                                     	th:text="${categoria.getDescripcion()}"
                                     >Categoria Receta</li>
                                 </ul>
+                            </div>
+                            <div class="col-md-6">
+                            	<img
+                            		src="../../static/images/perfect_guacamole_400x400.png"
+                            		th:src="@{/images/perfect_guacamole_400x400.png}"
+                            		width="200"
+                            		height="200"
+                            	>
                             </div>
                         </div>
                         <div class="row">
