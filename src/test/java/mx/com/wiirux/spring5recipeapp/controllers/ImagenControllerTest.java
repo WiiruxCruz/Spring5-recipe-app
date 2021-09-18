@@ -9,12 +9,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.any;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -77,5 +79,35 @@ class ImagenControllerTest {
 		
 		verify(imageService, times(1)).guardarArchivoImagen(anyLong(), any());
 	}
-
+	
+	@Test
+	public void renderImageDesdeDB() throws Exception{
+		//dado
+		RecetaCommand command = new RecetaCommand();
+		command.setId(1L);
+		
+		String s = "fake image text";
+		Byte[] bytesBoxed = new Byte[s.getBytes().length];
+		
+		int i = 0;
+		
+		for(byte primByte : s.getBytes()) {
+			bytesBoxed[i++] = primByte;
+		}
+		
+		command.setImagen(bytesBoxed);
+		
+		when(recetaService.buscarCommandPorId(anyLong())).thenReturn(command);
+		
+		//cuando
+		MockHttpServletResponse respuesta = mockMvc.perform(get("/receta/1/recetaImagen"))
+				.andExpect(status().isOk())
+				.andReturn().getResponse()
+				;
+		
+		//entonces
+		byte[] respuestaBytes = respuesta.getContentAsByteArray();
+		
+		assertEquals(s.getBytes().length, respuestaBytes.length);
+	}
 }

@@ -47,6 +47,7 @@ public class RecetaARecetaCommand implements Converter<Receta, RecetaCommand>{
 		command.setPorciones(source.getPorciones());
 		command.setOrigen(source.getOrigen());
 		command.setUrl(source.getUrl());
+		command.setImagen(source.getImagen());
 		command.setNotas(notasConverter.convert(source.getNotas()));
 		
 		if(source.getCategorias() != null && source.getCategorias().size() > 0) {
