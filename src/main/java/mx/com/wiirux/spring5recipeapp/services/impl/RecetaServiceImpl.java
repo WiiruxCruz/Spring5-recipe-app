@@ -13,6 +13,7 @@ import mx.com.wiirux.spring5recipeapp.commands.RecetaCommand;
 import mx.com.wiirux.spring5recipeapp.converters.RecetaARecetaCommand;
 import mx.com.wiirux.spring5recipeapp.converters.RecetaCommandAReceta;
 import mx.com.wiirux.spring5recipeapp.domain.Receta;
+import mx.com.wiirux.spring5recipeapp.exceptions.NoEncontradoExcepcion;
 import mx.com.wiirux.spring5recipeapp.repositories.RecetaRepositorio;
 import mx.com.wiirux.spring5recipeapp.services.RecetaService;
 
@@ -49,7 +50,8 @@ public class RecetaServiceImpl implements RecetaService{
 		Optional<Receta> recetaOpcional = recetaRepositorio.findById(id);
 		
 		if(!recetaOpcional.isPresent()) {
-			throw new RuntimeException("Receta no encontrada");
+			//throw new RuntimeException("Receta no encontrada");
+			throw new NoEncontradoExcepcion("Receta no encontrada");
 		}
 				
 		return recetaOpcional.get();

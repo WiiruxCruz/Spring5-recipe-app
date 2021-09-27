@@ -28,6 +28,7 @@ import org.springframework.ui.Model;
 
 import mx.com.wiirux.spring5recipeapp.commands.RecetaCommand;
 import mx.com.wiirux.spring5recipeapp.domain.Receta;
+import mx.com.wiirux.spring5recipeapp.exceptions.NoEncontradoExcepcion;
 import mx.com.wiirux.spring5recipeapp.services.RecetaService;
 
 class RecipeControllerTest {
@@ -59,6 +60,20 @@ class RecipeControllerTest {
 		.andExpect(status().isOk())
 		.andExpect(view().name("receta/mostrar"))
 		.andExpect(model().attributeExists("receta"))
+		;
+	}
+	
+	@Test
+	public void testObtenerRecetaNoEncontrada() throws Exception{
+		Receta receta = new Receta();
+		receta.setId(1L);
+		
+		when(rs.buscarPorId(anyLong())).thenThrow(NoEncontradoExcepcion.class);
+		
+		mockMvc.perform(get("/receta/1/mostrar"))
+		.andExpect(status().isNotFound())
+		//para hacer funcionar este, cambiar el estatus error code y recompilar
+		//.andExpect(status().is5xxServerError())
 		;
 	}
 	
