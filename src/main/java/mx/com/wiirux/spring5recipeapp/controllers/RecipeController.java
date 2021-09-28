@@ -1,17 +1,22 @@
 package mx.com.wiirux.spring5recipeapp.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
 import mx.com.wiirux.spring5recipeapp.commands.RecetaCommand;
 import mx.com.wiirux.spring5recipeapp.domain.Receta;
+import mx.com.wiirux.spring5recipeapp.exceptions.NoEncontradoExcepcion;
 import mx.com.wiirux.spring5recipeapp.services.RecetaService;
 
 @Slf4j
@@ -74,5 +79,14 @@ public class RecipeController {
 		rs.borrarRecetaPorId(Long.valueOf(id));
 		
 		return "redirect:/";
+	}
+	
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(NoEncontradoExcepcion.class)
+	public ModelAndView ManejadorNoEncontrado() {
+		log.error("Manejador no encontrado");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error404");
+		return mav;
 	}
 }
