@@ -65,6 +65,7 @@ class RecipeControllerTest {
 	
 	@Test
 	public void testObtenerRecetaNoEncontrada() throws Exception{
+		/*
 		Receta receta = new Receta();
 		receta.setId(1L);
 		
@@ -74,6 +75,14 @@ class RecipeControllerTest {
 		.andExpect(status().isNotFound())
 		//para hacer funcionar este, cambiar el estatus error code y recompilar
 		//.andExpect(status().is5xxServerError())
+		;
+		*/
+		
+		RecetaCommand command = new RecetaCommand();
+		mockMvc.perform(get("/receta/nuevo"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("receta/formularioReceta"))
+		.andExpect(model().attributeExists("receta"))
 		;
 	}
 	

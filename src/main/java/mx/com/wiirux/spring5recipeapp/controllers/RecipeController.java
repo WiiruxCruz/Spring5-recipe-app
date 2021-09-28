@@ -83,10 +83,15 @@ public class RecipeController {
 	
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NoEncontradoExcepcion.class)
-	public ModelAndView ManejadorNoEncontrado() {
+	public ModelAndView ManejadorNoEncontrado(Exception exception) {
 		log.error("Manejador no encontrado");
+		log.error(exception.getMessage());
+		
 		ModelAndView mav = new ModelAndView();
+		
 		mav.setViewName("error404");
+		mav.addObject("excepcion", exception);
+		
 		return mav;
 	}
 }

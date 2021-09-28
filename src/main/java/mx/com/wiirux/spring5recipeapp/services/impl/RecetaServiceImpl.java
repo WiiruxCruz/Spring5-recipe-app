@@ -51,7 +51,7 @@ public class RecetaServiceImpl implements RecetaService{
 		
 		if(!recetaOpcional.isPresent()) {
 			//throw new RuntimeException("Receta no encontrada");
-			throw new NoEncontradoExcepcion("Receta no encontrada");
+			throw new NoEncontradoExcepcion("Receta no encontrada:" + id.toString());
 		}
 				
 		return recetaOpcional.get();
