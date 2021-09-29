@@ -120,6 +120,26 @@ class RecipeControllerTest {
 			.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 			.param("id", "")
 			.param("descripcion", "Algun String")
+			.param("direcciones", "Algunas direcciones")
+		)
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/receta/2/mostrar"))
+		;
+	}
+	
+	@Test
+	public void testPostNewRecetaFormValidationFail() throws Exception{
+		RecetaCommand command = new RecetaCommand();
+		command.setId(2L);
+		when( rs.guardarRecetaCommand( any() ) ).thenReturn(command);
+		
+		mockMvc.perform(
+			post("/receta")
+			.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+			.param("id", "")
+			//al omitir los parametros que se marcan como obligatorios en el POJO manda error
+			.param("descripcion", "Algun String")
+			.param("direcciones", "Algunas direcciones")
 		)
 		.andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/receta/2/mostrar"))
