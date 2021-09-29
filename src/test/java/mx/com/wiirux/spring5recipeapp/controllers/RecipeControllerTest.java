@@ -46,7 +46,9 @@ class RecipeControllerTest {
 		
 		rc = new RecipeController(rs);
 		
-		mockMvc = MockMvcBuilders.standaloneSetup(rc).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(rc)
+				.setControllerAdvice(new ManejadorExcepcionController())
+				.build();
 	}
 	
 	@Test
